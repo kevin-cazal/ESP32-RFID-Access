@@ -9,12 +9,27 @@ cmd_t cmds[MAX_CMDS] = {
     {.name = "save", .fn = shell_save, .help = "save file"},
     {.name = "savedef", .fn = shell_save_default, .help = "savedef"},
     {.name = "loaddef", .fn = shell_load_default, .help = "loaddef"},
-    {.name = "cat", .fn = shell_cat, .help = "cat file"},
+    {.name = "hexdump", .fn = shell_hexdump, .help = "hexdump file"},
+    {.name = "read", .fn = shell_read, .help = "read dest"},
     {.name = "ls", .fn = shell_ls, .help = "ls"},
     {.name = "rm", .fn = shell_rm, .help = "rm file"},
     {.name = "print", .fn = shell_print, .help = "print string"},
     {.name = "help", .fn = shell_printHelp, .help = "help"}
 };
+
+void shell_read(String args[MAX_ARGS])
+{
+    uint8_t c = 0;
+    File f = STORAGE.open(args[1], "wb", true);
+
+    if (!f)
+        return;
+    while (Serial.available()) {
+        c = Serial.read();
+        f.write(c);
+    }
+    f.close();
+}
 
 void shell_printHelp(String args[MAX_ARGS])
 {
@@ -53,10 +68,6 @@ void shell_memAdd(String args[MAX_ARGS])
   size_t uidSize = args[2].length() / 2;
   size_t lenName = args[1].length() > 31 ? 31 : args[1].length();
   const char *name = args[1].c_str();
-  int name_ok = args[1].length();
-  int uid_len = (args[2].length() % 2) ? 0 : args[2].length() / 2;
-  int uid_ok = (uid_len == 4 || uid_len == 7 || uid_len == 10);
-  int perm_ok = args[3].toInt();
 
   memset(t.name, 0, sizeof(t.name));
   for(int i = 0; i < lenName; i++) {
@@ -79,7 +90,7 @@ void shell_memDel(String args[MAX_ARGS])
   delete_tag(&(tag_db), id);
 }
 
-void shell_cat(String args[MAX_ARGS])
+void shell_hexdump(String args[MAX_ARGS])
 {
     File f = STORAGE.open(args[1], "rb");
     uint8_t c;
