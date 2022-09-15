@@ -26,7 +26,8 @@ void setup()
   tag_db.sz = DB_SIZE;
   SPI.begin();
   STORAGE.begin(0);
-  read_from_fs(&tag_db, STORAGE, TAG_DB_FILE);
+  if (STORAGE.exists(TAG_DB_FILE))
+    read_from_fs(&tag_db, STORAGE, TAG_DB_FILE);
   rfid.PCD_Init();
   rfid.PCD_DumpVersionToSerial();
 }

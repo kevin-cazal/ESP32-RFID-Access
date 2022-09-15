@@ -4,7 +4,8 @@
 #include "tag.h"
 #include "err.h"
 #include "SPIFFS.h"
-#define STORAGE SPIFFS
+#include "LittleFS.h"
+#define STORAGE LittleFS
 
 #define DB_SIZE 1024
 #define TAG_DB_FILE "/tag.db"

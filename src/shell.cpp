@@ -81,16 +81,19 @@ void shell_memDel(String args[MAX_ARGS])
 
 void shell_cat(String args[MAX_ARGS])
 {
-  File f = STORAGE.open(args[1], "r");
-  uint8_t  c = 0;
-  if (!f || f.isDirectory())
-    return;
+    File f = STORAGE.open(args[1], "rb");
+    uint8_t c;
 
-    while(f.available()){
-        c = f.read();
-        printHex(&c, 1);
+    if (!f || f.isDirectory()) {
+      return;
     }
-  f.close();
+    while(f.available()) {
+        c = f.read();
+        if (c < 0x10)
+            Serial.print("0");
+        Serial.print(c, HEX);
+        Serial.print(" ");
+    }
 }
 
 void shell_ls(String args[MAX_ARGS])
@@ -99,7 +102,7 @@ void shell_ls(String args[MAX_ARGS])
   int used = STORAGE.usedBytes();
   int total = STORAGE.totalBytes();
   int free = total - used;
-  float used_percent = (used / total) * 100;
+  float used_percent = ((float)used / total) * 100;
   File root = STORAGE.open("/");
   File f;
 

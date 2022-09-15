@@ -58,11 +58,9 @@ void dump_to_serial(tag_db_t *db)
 
 void write_to_fs(tag_db_t *db, fs::FS &fs, const char *path)
 {
-    File f = fs.open(path, "w", true);
+    File f = fs.open(path, "wb", true);
     size_t sz = 0;
 
-    if (!f)
-        err(TAG_DB_OPEN_ERR);
     int s = 0;
     sz = f.write((uint8_t *)db, sizeof(tag_db_t));
     f.close();
@@ -72,7 +70,7 @@ void write_to_fs(tag_db_t *db, fs::FS &fs, const char *path)
 
 void read_from_fs(tag_db_t *db, fs::FS &fs, const char *path)
 {
-    File f = fs.open(path);
+    File f = fs.open(path, "rb");
     size_t sz = 0;
 
     if (!f)
