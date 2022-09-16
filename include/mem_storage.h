@@ -19,13 +19,12 @@ typedef struct {
     tag_t tags[DB_SIZE];
 } tag_db_t;
 
-
-int find_next_tag_slot(tag_db_t *db);
-int insert_tag(tag_db_t *db, tag_t *t);
-int delete_tag(tag_db_t *db, uint16_t id);
-void dump_to_serial(tag_db_t *db);
-void write_to_fs(tag_db_t *db, fs::FS &fs, const char *path);
-void read_from_fs(tag_db_t *db, fs::FS &fs, const char *path);
-void onTagPresent(tag_db_t *db, tag_t *rfid);
+uint16_t mem_find_next_tag_slot(tag_db_t *db);
+int mem_insert_tag(tag_db_t *db, tag_t *t);
+int mem_delete_tag(tag_db_t *db, uint16_t id);
+void mem_dump_to_serial(tag_db_t *db);
+void mem_write_to_fs(tag_db_t *db, fs::FS &fs, const char *path);
+void mem_read_from_fs(tag_db_t *db, fs::FS &fs, const char *path);
+void mem_match_tag(tag_db_t *db, tag_t *rfid);
 
 #endif

@@ -16,8 +16,7 @@
     LIMITED
   };
 
-  void printHex(uint8_t *, int);
-  void print_tag(tag_t *);
-  int uidCmp(tag_t *a, tag_t *b);
+  void print_hex(uint8_t *bytes, int sz);
+  void tag_print(tag_t *t);
 
 #endif

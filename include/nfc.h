@@ -4,7 +4,6 @@
 #include "mem_storage.h"
 #include "MFRC522.h"
 
-void read_card(MFRC522);
-
+void nfc_read_card(MFRC522 r);
 
 #endif

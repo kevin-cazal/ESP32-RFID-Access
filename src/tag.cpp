@@ -1,12 +1,6 @@
 #include "tag.h"
 
-
-int uidCmp(tag_t *a, tag_t *b)
-{
-    return memcmp(a->uid.uidByte, b->uid.uidByte, a->uid.size) ? 1 : 0;
-}
-
-void printHex(uint8_t *bytes, int sz)
+void print_hex(uint8_t *bytes, int sz)
 {
   int i = 0;
 
@@ -20,14 +14,14 @@ void printHex(uint8_t *bytes, int sz)
   }
 }
 
-void print_tag(tag_t *t)
+void tag_print(tag_t *t)
 {
   Serial.print("ID:");
   Serial.print(t->id);
   Serial.print(",UID:");
-  printHex(t->uid.uidByte, t->uid.size);
+    print_hex(t->uid.uidByte, t->uid.size);
   Serial.print(",PERM:");
-  printHex(&(t->perm), 1);
+  Serial.print(t->perm, BIN);
   Serial.print(",NAME:");
   Serial.println((char *)t->name);
 }
