@@ -4,7 +4,7 @@
     #include "Arduino.h"
     #include "mem_storage.h"
     #define MAX_ARGS 4
-    #define MAX_CMDS 12
+    #define MAX_CMDS 14
 
     typedef struct  {
         String name;
@@ -24,6 +24,8 @@
     void shell_cmd_not_found(String args[MAX_ARGS]);
     void shell_load_default(String args[MAX_ARGS]);
     void shell_save_default(String args[MAX_ARGS]);
+    void shell_get_time(String args[MAX_ARGS]);
+    void shell_set_time(String args[MAX_ARGS]);
     void shell_rm(String args[MAX_ARGS]);
     void shell_serial_read();
 #endif

@@ -13,8 +13,20 @@ cmd_t cmds[MAX_CMDS] = {
         {.name = "ls", .fn = shell_ls, .help = "ls"},
         {.name = "rm", .fn = shell_rm, .help = "rm file"},
         {.name = "showmem", .fn = shell_show_mem, .help = "showmem"},
-        {.name = "help", .fn = shell_print_help, .help = "help"}
+        {.name = "help", .fn = shell_print_help, .help = "help"},
+        {.name = "gettime", .fn = shell_get_time, .help = "gettime"},
+        {.name = "settime", .fn = shell_set_time, .help = "settime yyyy-mm-dd HH:MM:SS"}
 };
+
+void shell_get_time(String args[4])
+{
+    Serial.println("Not implemented");
+}
+
+void shell_set_time(String args[4])
+{
+    Serial.println("Not implemented");
+}
 
 void shell_read(String args[MAX_ARGS])
 {
